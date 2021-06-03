@@ -1,5 +1,6 @@
 import requests
 import json
+import sys ### FAD Prepare to exit program
 
 from urllib.parse import quote
 
@@ -282,7 +283,8 @@ class FrappeClient(object):
 			rjson = response.json()
 		except ValueError:
 			print(response.text)
-			raise
+			sys.exit() ### FAD Exit program in case of exception such as updating document when changed after downloaded
+			###raise ### FAD
 
 		if rjson and ('exc' in rjson) and rjson['exc']:
 			raise FrappeException(rjson['exc'])
