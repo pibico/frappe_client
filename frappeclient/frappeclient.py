@@ -2,7 +2,9 @@ import requests
 import json
 import sys ### FAD Prepare to exit program
 
-from urllib.parse import quote
+#from urllib.parse import quote ### Commented by FAD for compatibility on python3
+from six.moves.urllib.parse import quote ### FAD for compatibility on python3
+from six.moves import urllib ### FAD for compatibility on python3
 
 try:
 	from StringIO import StringIO
