@@ -1,6 +1,7 @@
 import requests
 import json
 import sys ### FAD Prepare to exit program
+from base64 import b64encode ### FAD to make token work
 
 #from urllib.parse import quote ### Commented by FAD for compatibility on python3
 from six.moves.urllib.parse import quote ### FAD for compatibility on python3
@@ -64,13 +65,13 @@ class FrappeClient(object):
 			raise AuthError
 
 	def authenticate(self, api_key, api_secret, test_success=False):
-		token = b64encode('{}:{}'.format(api_key, api_secret))
+		token = b64encode('{}:{}'.format(api_key, api_secret).encode()).decode() ### FAD for working token
 		auth_header = {'Authorization': 'Basic {}'.format(token)}
 		self.session.headers.update(auth_header)
    
-		if test_success:
+		#if test_success: ### FAD for working token
 			# If the authorization isn't successful AuthError is raised in post process
-			self.get_api("frappe.auth.get_logged_user")
+		#	self.get_api("frappe.auth.get_logged_user") ### FAD for working token
 
 	def logout(self):
 		self.session.get(self.url, params={
